@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will you be my Valentine?</title>
+<style>
+body {
+    background-color: #fff0f5;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    overflow: hidden;
+}
+.container {
+    margin-top: 50px;
+}
+.header_text {
+    font-size: 2.5em;
+    color: #e91e63;
+}
+.gif_container img {
+    width: 300px;
+    margin: 20px 0;
+}
+.buttons {
+    margin-top: 20px;
+}
+.btn {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+}
+#yesButton {
+    background-color: #4caf50;
+    color: white;
+    transition: transform 0.2s, font-size 0.2s;
+}
+#noButton {
+    background-color: #f44336;
+    color: white;
+    position: absolute;
+}
+</style>
+<script>
+let noClicks = 0;
+const noTexts = ["No!", "Really?", "Come on", "Last try", "Seriously", "Last chance"];
+function nextPage() {
+    window.location.href = "yes.html";
+}
+function moveButton() {
+    // Change No button text after each click
+    if(noClicks < noTexts.length) {
+        document.getElementById("noButton").innerText = noTexts[noClicks];
+    }
+    
+    // Make Yes button bigger
+    const yesBtn = document.getElementById("yesButton");
+    let currentScale = parseFloat(yesBtn.getAttribute('data-scale')) || 1;
+    currentScale += 0.1; // increase size
+    yesBtn.setAttribute('data-scale', currentScale);
+    yesBtn.style.transform = `scale(${currentScale})`;
+
+    noClicks++;
+    
+    // Move No button to random place
+    const btn = document.getElementById("noButton");
+    const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+    btn.style.left = `${x}px`;
+    btn.style.top = `${y}px`;
+}
+</script>
+</head>
+<body>
+<div class="container">
+<h1 class="header_text">Will you be my valentine?</h1>
+
+<div class="gif_container">
+<img src="https://64.media.tumblr.com/44437aaa3af65ef5b5dc25b2cf1e81d1/6acc7d78ea83e207-45/s400x600/5b30035952803850ed3136fbe760ceff97ee8d19.gif">
+</div>
+
+<div class="buttons">
+<button class="btn" id="yesButton" onclick="nextPage()" data-scale="1">Yes</button>
+<button class="btn" id="noButton" onmouseover="moveButton()">No</button>
+</div>
+</div>
+</body>
+</html>
